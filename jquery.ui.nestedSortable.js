@@ -140,10 +140,10 @@
 			// If the item is below another one and is moved to the right, make it a children of it
 			else if (previousItem != null && this.positionAbs.left > previousItem.offset().left + o.tabSize) {
 				this._isAllowed(previousItem, level+childLevels+1);
-				if (previousItem[0].children[1] == null) {
+				if (!previousItem.children(o.listType).length) {
 					previousItem[0].appendChild(newList);
 				}
-				previousItem[0].children[1].appendChild(this.placeholder[0]);
+				previousItem.children(o.listType)[0].appendChild(this.placeholder[0]);
 				this._trigger("change", event, this._uiHash());
 			}
 			else {
@@ -342,7 +342,11 @@
 				}
 			} else {
 				this.placeholder.addClass(o.errorClass);
-				this.beyondMaxLevels = (levels - o.maxLevels) > 0 ? levels - o.maxLevels : 1;
+				if (o.maxLevels < levels && o.maxLevels != 0) {
+					this.beyondMaxLevels = levels - o.maxLevels;
+				} else {
+					this.beyondMaxLevels = 1;
+				}
 			}
 		}
 
