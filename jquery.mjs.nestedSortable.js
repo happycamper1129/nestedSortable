@@ -19,7 +19,6 @@
 			tabSize: 20,
 			disableNesting: 'mjs-nestedSortable-no-nesting',
 			errorClass: 'mjs-nestedSortable-error',
-			doNotClear: false,
 			listType: 'ol',
 			maxLevels: 0,
 			protectRoot: false,
@@ -358,7 +357,7 @@
 		_clearEmpty: function(item) {
 
 			var emptyList = $(item).children(this.options.listType);
-			if (emptyList.length && !emptyList.children().length && !this.options.doNotClear) {
+			if (emptyList.length && !emptyList.children().length) {
 				emptyList.remove();
 			}
 
