@@ -19,6 +19,7 @@
 			tabSize: 20,
 			disableNesting: 'mjs-nestedSortable-no-nesting',
 			errorClass: 'mjs-nestedSortable-error',
+			doNotClear: false,
 			listType: 'ol',
 			maxLevels: 0,
 			protectRoot: false,
@@ -357,7 +358,7 @@
 		_clearEmpty: function(item) {
 
 			var emptyList = $(item).children(this.options.listType);
-			if (emptyList.length && !emptyList.children().length) {
+			if (emptyList.length && !emptyList.children().length && !this.options.doNotClear) {
 				emptyList.remove();
 			}
 
@@ -400,7 +401,7 @@
 			// Is the root protected?
 			// Are we trying to nest under a no-nest?
 			// Are we nesting too deep?
-			if (!o.isAllowed(parentItem, this.placeholder) ||
+			if (!o.isAllowed(this.placeholder, parentItem) ||
 				parentItem && parentItem.hasClass(o.disableNesting) ||
 				o.protectRoot && (parentItem == null && !isRoot || isRoot && level > 1)) {
 					this.placeholder.addClass(o.errorClass);
